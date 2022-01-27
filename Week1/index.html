@@ -66,6 +66,11 @@
                   <ol class="p-5 list">
                     <li>商品描述：{{ currentShow.description }}</li>
                     <li>商品內容：{{ currentShow.content }}</li>
+                    <li>價格: <del>NT$ {{ currentShow.price }}</del> <span class="has-text-danger">NT$</span><span
+                        class="is-size-3 has-text-danger">
+                        {{ currentShow.origin_price }}</span>
+                      <span></span>
+                    </li>
                   </ol>
 
                   <figure class="inline-img" v-for="(img,index) in currentShow.imagesUrl" :key="index">
