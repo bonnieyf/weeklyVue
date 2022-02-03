@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week3-Login</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/custom.css">
+</head>
+<body>
+    <div id="app">
+      <div class="container is-fluid p-0">
+        <div id="login">
+          <section class="hero">
+              <div class="hero-body">
+                <p class="title">
+                  請先登入
+                </p>
+              </div>
+          </section>
+          <div class="content">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" placeholder="Email" v-model="user.username">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input class="input" type="password" placeholder="Password" v-model="user.password">
+              </div>
+            </div>
+
+
+            <div v-if="isLogin === '-1'" class="notification is-danger is-light">
+              <span class="icon has-text-info">
+                <i class="fas fa-info-circle"></i>
+              </span>
+              請輸入帳號密碼欄位！欄位不可為空！
+            </div>
+
+            <div v-if="isLogin === '0'" class="notification is-danger is-light">
+              <span class="icon has-text-info">
+                <i class="fas fa-info-circle"></i>
+              </span>
+              登入失敗，請輸入正確的帳號密碼！
+            </div>
+            
+            <div class="field">
+              <div class="control">
+                <button id="login-btn" class="button is-link" @click="login()">登入</button>
+              </div>
+            </div>
+          </div>  
+        </div>
+          
+        </div>
+    </div>
+
+    
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
+  integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
+  crossorigin='anonymous'></script>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="./js/login.js"></script>
+<style>
+  #login{
+    text-align: center;
+    width: 300px;
+    margin-top: -300px;
+  }
+
+  .field.is-grouped{
+    justify-content: center;
+  }
+
+  #login-btn{
+    width: 100%;
+  }
+
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  html,body{
+    height: 100vh;
+  }
+
+  .has-text-info{
+    color: #cc0f35 !important;
+  }
+</style>
+</html>
