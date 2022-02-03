@@ -5,6 +5,7 @@ const app = Vue.createApp({
             apiUrl: 'https://vue3-course-api.hexschool.io/v2',
             apiPath: 'vue-boni',
             products: [],
+            total: 0,
             isNew: false,
             isShowModal: false,
             isShowDelModal: false,
@@ -59,6 +60,7 @@ const app = Vue.createApp({
             axios.get(url)
                 .then((res)=>{
                     this.products = res.data.products;
+                    this.total = Object.keys(res.data.products).length;
                 })
                 .catch((err)=>{
                     alert(err.data.message);
