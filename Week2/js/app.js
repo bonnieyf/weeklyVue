@@ -44,9 +44,7 @@ const app = Vue.createApp({
       openModal(item){
         this.tempProduct = { ...item };
         this.isNew = false;
-        console.log('hello')
         this.isShowModal = true;
-        console.log(this.isShowModal)
       },
   },
 }).mount('#app');
