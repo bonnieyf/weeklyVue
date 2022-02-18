@@ -21,38 +21,40 @@
               </div>
           </section>
           <div class="content">
-            <div class="field">
-              <div class="control">
-                <input class="input" type="text" placeholder="Email" v-model="user.username">
+            <form @submit.prevent="submit">
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text" placeholder="Email" v-model="user.username">
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <div class="control">
-                <input class="input" type="password" placeholder="Password" v-model="user.password">
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="password" placeholder="Password" v-model="user.password">
+                </div>
               </div>
-            </div>
 
 
-            <div v-if="isLogin === '-1'" class="notification is-danger is-light">
-              <span class="icon has-text-info">
-                <i class="fas fa-info-circle"></i>
-              </span>
-              請輸入帳號密碼欄位！欄位不可為空！
-            </div>
-
-            <div v-if="isLogin === '0'" class="notification is-danger is-light">
-              <span class="icon has-text-info">
-                <i class="fas fa-info-circle"></i>
-              </span>
-              登入失敗，請輸入正確的帳號密碼！
-            </div>
-            
-            <div class="field">
-              <div class="control">
-                <button id="login-btn" class="button is-link" @click="login()">登入</button>
+              <div v-if="isLogin === '-1'" class="notification is-danger is-light">
+                <span class="icon has-text-info">
+                  <i class="fas fa-info-circle"></i>
+                </span>
+                請輸入帳號密碼欄位！欄位不可為空！
               </div>
-            </div>
+
+              <div v-if="isLogin === '0'" class="notification is-danger is-light">
+                <span class="icon has-text-info">
+                  <i class="fas fa-info-circle"></i>
+                </span>
+                登入失敗，請輸入正確的帳號密碼！
+              </div>
+              
+              <div class="field">
+                <div class="control">
+                  <button id="login-btn" class="button is-link">登入</button>
+                </div>
+              </div>
+            </form>
           </div>  
         </div>
           
@@ -65,7 +67,7 @@
   integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
   crossorigin='anonymous'></script>
 <script src="https://unpkg.com/vue@next"></script>
-<script src="./login.js"></script>
+<script src="./js/login.js"></script>
 <style>
   #login{
     text-align: center;

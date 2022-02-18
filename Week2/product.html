@@ -31,49 +31,49 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(item,index) in products" :key="item.id">
+                    <tr v-for="(item ,key ,index) in products" :key="item.id">
                       <th>{{ index+1 }}</th>
                       <td>{{ item.title }}</td>
                       <td>{{ item.origin_price }}</td>
                       <td>{{ item.price }}</td>
                       <td><span class="tag" :class="{'is-success': item.is_enabled}" v-text="item.is_enabled?'啟用':'未啟用'"></span></td>
                       <td>
-                        <button class="button is-rounded modal-button" @click="showModal=!showModal , currentShow=item">查看細節</button>
+                        <button class="button is-rounded modal-button" @click="openModal(item)">查看細節</button>
                       </td>
                     </tr>
                   </tbody>
               </table>
 
               <div class="not">
-                目前有 {{ products.length }} 項產品
+                目前有 {{ total }} 項產品
               </div>
           </div>  
         </div>
 
         <!-- Modal -->
-        <div class="modal" :class="{ 'is-active': showModal }">
-          <div class="modal-background" @click="showModal=!showModal"></div>
+        <div class="modal" :class="{ 'is-active': isShowModal }">
+          <div class="modal-background" @click="isShowModal=!isShowModal"></div>
           <div class="modal-card">
               <article class="tile is-child box">
                 <figure class="image max-200">
-                  <img :src="currentShow.imageUrl">
+                  <img :src="tempProduct.imageUrl">
                 </figure>
                 <header class="mt-5 mb-0 p-0">
-                  <p class="modal-card-title">{{ currentShow.title }} <span class="tag is-link"> {{ currentShow.category }}</span></p>
-                  <button class="delete" aria-label="close" @click="showModal=!showModal"></button>
+                  <p class="modal-card-title">{{ tempProduct.title }} <span class="tag is-link"> {{ tempProduct.category }}</span></p>
+                  <button class="delete" aria-label="close" @click="isShowModal=!isShowModal"></button>
                 </header>
                 <div class="modal-content">
                   <ol class="p-5 list">
-                    <li>商品描述：{{ currentShow.description }}</li>
-                    <li>商品內容：{{ currentShow.content }}</li>
-                    <li>價格: <del>NT$ {{ currentShow.origin_price }}</del> <span class="has-text-danger">NT$</span><span
+                    <li>商品描述：{{ tempProduct.description }}</li>
+                    <li>商品內容：{{ tempProduct.content }}</li>
+                    <li>價格: <del>NT$ {{ tempProduct.origin_price }}</del> <span class="has-text-danger">NT$</span><span
                         class="is-size-3 has-text-danger">
-                        {{ currentShow.price }}</span>
+                        {{ tempProduct.price }}</span>
                       <span></span>
                     </li>
                   </ol>
 
-                  <figure class="inline-img" v-for="(img,index) in currentShow.imagesUrl" :key="index">
+                  <figure class="inline-img" v-for="(img,index) in tempProduct.imagesUrl" :key="index">
                     <img :src="img">
                   </figure>
                 </div>
@@ -84,6 +84,14 @@
 
     
 </body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
+  integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
+  crossorigin='anonymous'></script>
 <script src="https://unpkg.com/vue@next"></script>
-<script src="./app.js"></script>
+<script src="./js/app.js"></script>
+<style>
+  .modal-content{
+    width: 100%;
+  }
+</style>
 </html>
