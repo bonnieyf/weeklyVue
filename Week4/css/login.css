@@ -1,0 +1,27 @@
+#login{
+    text-align: center;
+    width: 300px;
+    margin-top: -300px;
+  }
+
+  .field.is-grouped{
+    justify-content: center;
+  }
+
+  #login-btn{
+    width: 100%;
+  }
+
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  html,body{
+    height: 100vh;
+  }
+
+  .has-text-info{
+    color: #cc0f35 !important;
+  }

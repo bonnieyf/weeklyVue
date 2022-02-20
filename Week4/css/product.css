@@ -1,0 +1,67 @@
+.coffee-brand{
+    width: 100%;
+    height: 200px;
+    background: #fff url(https://images.unsplash.com/photo-1494346480775-936a9f0d0877?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1116&q=80) no-repeat center center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    opacity: .8;
+  }
+
+  .hero{
+    position: relative;
+    z-index: 2;
+  }
+
+  .container{
+    position: relative;
+    z-index: 20;
+  }
+
+  .hero{
+    position: relative;
+    margin-top: -120px;
+  }
+
+  .hero-body{
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .hero p{
+    color: white;
+    background: rgba(0,0,0,.6);
+    padding: 10px 20px;
+  }
+  .modal-card{
+    width: 800px;
+  }
+
+  #create-product{
+    justify-content: center;
+  }
+
+  .control label{
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  #add-button{
+    float: right;
+  }
+
+  #add-imgs-button{
+    width: 100%;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .pagination-link.is-disabled, .pagination-link[disabled], .pagination-next.is-disabled, .pagination-next[disabled], .pagination-previous.is-disabled, .pagination-previous[disabled] {
+    background-color: #dbdbdb;
+    border-color: #dbdbdb;
+    box-shadow: none;
+    color: #7a7a7a;
+    opacity: .5;
+  }

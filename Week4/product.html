@@ -7,6 +7,7 @@
     <title>Week4</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/product.css">
 </head>
 <body>
     <div id="app">
@@ -55,123 +56,7 @@
         <div class="modal" :class="{ 'is-active': isShowModal }">
           <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head">
-                <p v-if="isNew" class="modal-card-title">新增產品</p>
-                <p v-else class="modal-card-title">更新產品</p>
-                <button class="delete" aria-label="close" @click="isShowModal = !isShowModal"></button>
-              </header>
-              <section class="modal-card-body">
-                <div id="create-product" class="columns">
-                  <div class="column is-6">
-                    <div class="field">
-                      <div class="control">
-                        <label for="" ><b>主要圖片</b></label>
-                        <input class="input" type="text" placeholder="請輸入圖片連結" v-model="tempProduct.imageUrl">
-                        <img :src="tempProduct.imageUrl" class="mt-2" alt="">
-                      </div>
-                    </div>
-
-                    <h2 class="subtitle mb-5 mt-5"><b>新增其他圖片</b></h2>
-                    <div v-if="Array.isArray(tempProduct.imagesUrl)" class="mb-3">
-                      <div class="field" v-for="(image,key,index) in tempProduct.imagesUrl" :key="key">
-                        <div class="control">
-                          <label for="" ><b>組圖：{{key+1}}</b></label>
-                          <div class="columns">
-                            <div class="column is-9">
-                            <input class="input" type="text" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
-                            </div>
-                            <div class="column is-3">
-                              <button class="button buttons is-danger is-outlined are-small" style="width: 100%; text-align: center; justify-content: center;" @click="tempProduct.imagesUrl.splice(key, 1);">刪除</button>
-                            </div>
-                          </div>
-                          <img :src="image" alt="">
-                        </div>
-                      </div>
-                    </div>
-
-                    <button id="add-imgs-button" class="button buttons is-info is-outlined are-small" @click="createImages();">新增圖片欄位</button>
-                    
-
-
-                    
-  
-                  </div>
-
-                  
-                  <div class="column is-6">
-                    <div class="field">
-                      <div class="control">
-                        <label for="">標題</label>
-                        <input class="input" :class="{'is-danger' : formMessages.title.isPass == false}" type="text" placeholder="請輸入主要標題" v-model="tempProduct.title">
-                        <p class="help is-danger" v-if="formMessages.title.isPass == false">{{ formMessages.title.message }}</p>
-                      </div>
-                    </div>
-
-                    <div class="columns">
-                      <div class="column">
-                        <div class="field">
-                          <div class="control">
-                              <label for="">分類</label>
-                              <input class="input" :class="{'is-danger' : formMessages.category.isPass == false}"  type="text" placeholder="請輸入分類" v-model="tempProduct.category">
-                              <p class="help is-danger" v-if="formMessages.category.isPass == false">{{ formMessages.category.message }}</p>
-                            </div>
-                            
-                          </div>
-                      </div>
-                      <div class="column">
-                        <div class="field">
-                          <div class="control">
-                              <label for="">單位</label>
-                              <input class="input" :class="{'is-danger' : formMessages.unit.isPass == false}"  type="text" placeholder="請輸入分單位" v-model="tempProduct.unit">
-                              <p class="help is-danger" v-if="formMessages.unit.isPass == false">{{ formMessages.unit.message }}</p>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div class="columns">
-                      <div class="column">
-                        <div class="field">
-                          <div class="control">
-                              <label for="">原價</label>
-                              <input class="input" :class="{'is-danger' : formMessages.origin_price.isPass == false}"  type="number" placeholder="請輸入原價" v-model="tempProduct.origin_price">
-                              <p class="help is-danger" v-if="formMessages.origin_price.isPass == false">{{ formMessages.origin_price.message }}</p>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="column">
-                        <div class="field">
-                          <div class="control">
-                              <label for="">售價</label>
-                              <input class="input" type="number"  :class="{'is-danger' : formMessages.price.isPass == false}"  placeholder="請輸入分售價" v-model="tempProduct.price">
-                              <p class="help is-danger" v-if="formMessages.price.isPass == false">{{ formMessages.price.message }}</p>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div class="field">
-                      <div class="control">
-                        <label for="">產品描述</label>
-                        <textarea class="textarea" placeholder="請輸入產品描述" v-model="tempProduct.description"></textarea>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <label for="">說明內容</label>
-                        <textarea class="textarea" placeholder="請輸入說明內容" v-model="tempProduct.content"></textarea>
-                      </div>
-                    </div>
-                    <label class="checkbox" for="isEnable">
-                      <input id="isEnable" type="checkbox" v-model="tempProduct.is_enabled" :true-value="1" :false-value="0"> 是否啟用
-                    </label>
-                  </div>
-                </div>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success" @click="updateProduct">確認</button>
-                <button class="button" @click="isShowModal = !isShowModal">取消</button>
-              </footer>
+              <modalupdate :temp-product="tempProduct" :is-new="isNew" v-on:modal="switchModal" v-on:getproducts="getData" v-on:createimgs="createImages"></modalupdate>
             </div>
         </div>
 
@@ -179,103 +64,15 @@
         <div class="modal" :class="{ 'is-active': isShowDelModal }">
           <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">刪除產品</p>
-                <button class="delete" aria-label="close" @click="isShowDelModal = !isShowDelModal"></button>
-              </header>
-              <section class="modal-card-body">
-                <div id="create-product" class="columns">
-                  <div class="column is-6">
-                    <div class="field">
-                      <div class="control">
-                        <label for="" ><b>是否要刪除 <b class="has-text-danger">{{ tempProduct.title }}</b> 刪除後將無法恢復。</b></label>
-                        <img :src="tempProduct.imageUrl" alt="">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-danger" @click="deleteProduct">確認刪除</button>
-                <button class="button" @click="isShowDelModal = !isShowDelModal">取消</button>
-              </footer>
+              <modaldeleted :temp-product="tempProduct" v-on:delmodal="switchDelModal" v-on:getproducts="getData"></modaldeleted>
             </div>
         </div>
     </div>
 
-    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
+    integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
+    crossorigin='anonymous'></script>
+    <script src="./js/all.js"></script>
+    <script type="module" src="./js/app.js"></script>    
 </body>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
-  integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
-  crossorigin='anonymous'></script>
-<script type="module" src="./js/app.js"></script>
-<style>
-  .coffee-brand{
-    width: 100%;
-    height: 200px;
-    background: #fff url(https://images.unsplash.com/photo-1494346480775-936a9f0d0877?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1116&q=80) no-repeat center center;
-    background-size: cover;
-    position: relative;
-    z-index: 1;
-    opacity: .8;
-  }
-
-  .hero{
-    position: relative;
-    z-index: 2;
-  }
-
-  .container{
-    position: relative;
-    z-index: 20;
-  }
-
-  .hero{
-    position: relative;
-    margin-top: -120px;
-  }
-
-  .hero-body{
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
-  .hero p{
-    color: white;
-    background: rgba(0,0,0,.6);
-    padding: 10px 20px;
-  }
-  .modal-card{
-    width: 800px;
-  }
-
-  #create-product{
-    justify-content: center;
-  }
-
-  .control label{
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  #add-button{
-    float: right;
-  }
-
-  #add-imgs-button{
-    width: 100%;
-    font-size: 14px;
-    margin-top: 20px;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .pagination-link.is-disabled, .pagination-link[disabled], .pagination-next.is-disabled, .pagination-next[disabled], .pagination-previous.is-disabled, .pagination-previous[disabled] {
-    background-color: #dbdbdb;
-    border-color: #dbdbdb;
-    box-shadow: none;
-    color: #7a7a7a;
-    opacity: .5;
-  }
-</style>
 </html>

@@ -1,13 +1,14 @@
 
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.js';
 import pagination from './pagination.js';
-
-const apiUrl = 'https://vue3-course-api.hexschool.io/v2';
-const apiPath = 'vue-boni';
+import modalupdate from './modal-update.js';
+import modaldeleted from './modal-deleted.js';
 
 const app = createApp({
     components:{
-        pagination
+        pagination,
+        modalupdate,
+        modaldeleted
     },
     data(){
         return {
@@ -20,29 +21,8 @@ const app = createApp({
             tempProduct: {
                 imagesUrl: [],
             },
-            allPassed: false,
-            formMessages:{
-                title: {
-                    isPass: null,
-                    message: '商品標題為必填'
-                },
-                category: {
-                    isPass: null,
-                    message: '類別欄位為必填'
-                },
-                unit: {
-                    isPass: null,
-                    message: '單位欄位為必填'
-                },
-                origin_price:{
-                    isPass: null,
-                    message: '請輸入原價'
-                },
-                price: {
-                    isPass: null,
-                    message: '請輸入售價'
-                },
-            }
+            
+            
         }
     },
     mounted(){
@@ -52,6 +32,12 @@ const app = createApp({
       this.checkAdmin()
     },
     methods: {
+        switchModal(){
+            this.isShowModal = !this.isShowModal;
+        },
+        switchDelModal(){
+            this.isShowDelModal = !this.isShowDelModal;
+        },
         checkAdmin(){
             const url = `${apiUrl}/api/user/check`;
             axios.post(url)
@@ -81,85 +67,16 @@ const app = createApp({
                     imagesUrl: [],
                 }
                 this.isNew = true;
-                this.isShowModal = true;
-                this.formMessages.title.isPass = null;
-                this.formMessages.category.isPass = null;
-                this.formMessages.unit.isPass = null;
-                this.formMessages.origin_price.isPass = null;
-                this.formMessages.price.isPass = null;
-                this.allPassed = false;
+                this.switchModal();
                 
             }else if(status === 'update'){
                 this.tempProduct = { ...item };
                 this.isNew = false;
-                this.isShowModal = true;
+                this.switchModal();
             }else if(status === 'delete'){
                 this.tempProduct = { ...item };
-                this.isShowDelModal = true;
+                this.switchDelModal();
             }
-        },
-        updateProduct(){
-            let url = `${apiUrl}/api/${apiPath}/admin/product`;
-            let http = 'post';
-
-            if(!this.isNew){
-                url = `${apiUrl}/api/${apiPath}/admin/product/${this.tempProduct.id}`;
-                http = 'put';
-            }
-
-            if(!this.tempProduct.title){
-                this.formMessages.title.isPass = false;
-            }
-
-            if(!this.tempProduct.category){
-                this.formMessages.category.isPass = false;
-            }
-
-            if(!this.tempProduct.unit){
-                this.formMessages.unit.isPass = false;
-            }
-
-            if(!this.tempProduct.origin_price){
-                this.formMessages.origin_price.isPass = false;
-            }
-
-            if(!this.tempProduct.price){
-                this.formMessages.price.isPass = false;
-            }
-
-            if(this.formMessages.title.isPass &&  this.formMessages.category.isPass &&  this.formMessages.unit.isPass &&  this.formMessages.origin_price.isPass &&  this.formMessages.price.isPass){
-                this.allPassed = true;
-            }else{
-                this.allPassed = false;
-            }
-
-
-            if(this.allPassed){
-                axios[http](url,{
-                    data: this.tempProduct
-                })
-                .then((res) =>{
-                    alert(res.data.message);
-                    this.isShowModal = false;
-                    this.getData();
-                })
-                .catch(err =>{
-                    console.log(err.data.message);
-                });
-            }
-        },
-        deleteProduct(){
-            let url = `${apiUrl}/api/${apiPath}/admin/product/${this.tempProduct.id}`;
-
-            axios.delete(url)
-                .then((res) =>{
-                    alert(res.data.message);
-                    this.isShowDelModal = false;
-                    this.getData();
-                })
-                .catch(err =>{
-                    console.log(err.data.message);
-                });
         },
         createImages(){
             if (this.tempProduct.imageUrl) {
@@ -173,48 +90,4 @@ const app = createApp({
             }
         }
     },
-    watch:{
-        'tempProduct.title': function(value) {
-            if(value === ''){
-                this.formMessages.title.isPass = false;
-                return;
-            }else{
-                this.formMessages.title.isPass = true;
-            }
-
-        },
-        'tempProduct.category': function(value) {
-            console.log(value)
-            if(value === ''){
-                this.formMessages.category.isPass = false;
-            }else{
-                this.formMessages.category.isPass = true;
-            }
-
-        },
-        'tempProduct.unit': function(value) {
-            if(value === ''){
-                this.formMessages.unit.isPass = false;
-            }else{
-                this.formMessages.unit.isPass = true;
-            }
-
-        },
-        'tempProduct.origin_price': function(value) {
-            if(value === ''){
-                this.formMessages.origin_price.isPass = false;
-            }else{
-                this.formMessages.origin_price.isPass = true;
-            }
-
-        },
-        'tempProduct.price': function(value) {
-            if(value === ''){
-                this.formMessages.price.isPass = false;
-            }else{
-                this.formMessages.price.isPass = true;
-            }
-
-        }
-    }
 }).mount('#app');
