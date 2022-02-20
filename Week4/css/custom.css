@@ -1,0 +1,25 @@
+.max-200{
+    margin: 0 auto;
+    max-width: 200px;
+}
+
+ol.list{
+    list-style: disc;
+}
+
+.delete{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.inline-img{
+    display: inline-block;
+    height: 100px;
+    width: auto;
+    margin-right: 5px;
+}
+
+.inline-img img{
+    max-height: 100%;
+}
