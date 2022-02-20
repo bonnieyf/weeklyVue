@@ -12,7 +12,7 @@ const app = createApp({
     },
     methods: {
       login(){
-        const api = `${url}/admin/signin`;
+        const api = `${apiUrl}/admin/signin`;
 
         if(this.user.username === '' || this.user.password === ''){
           this.isLogin = '-1';
