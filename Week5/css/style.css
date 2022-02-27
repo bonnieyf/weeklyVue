@@ -1,0 +1,20 @@
+.itemImg{
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .productImg{
+    height: 400px;
+    margin: 0 auto;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .btn-close{
+    background-color: #fff;
+  }
+
+  .h6{
+    color: #b9b9b9;
+  }
